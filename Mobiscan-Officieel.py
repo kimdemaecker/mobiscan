@@ -3124,7 +3124,7 @@ def genereer_ai_mobiliteitstekst(
     if not api_key:
         return {
             "actief": False,
-            "fout": "Geen OpenAI API key gevonden. Controleer of OPENAI_API_KEY correct in het .env-bestand of in Streamlit secrets staat.",
+            "fout": "Geen OpenAI API key gevonden. Controleer of OPENAI_API_KEY correct in het .env-bestand of in environment variable staat.",
             "prompt": prompt,
             "tekst": "",
             "model": model,
