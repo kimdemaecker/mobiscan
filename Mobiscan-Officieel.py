@@ -36,7 +36,9 @@ from reportlab.lib.styles import getSampleStyleSheet
 # INSTELLINGEN
 # =========================================================
 
-API_KEY = "59f7de89d7484923b8df1b76131b9633"
+import os
+
+API_KEY = os.getenv("API_KEY")
 
 # Uitbreidbaar parkeerkader per gemeente. Voeg hier later gemeenten toe zonder
 # de berekeningslogica zelf te moeten aanpassen.
@@ -380,15 +382,10 @@ ai_model = st.sidebar.selectbox(
 ai_promptstijl = "Professioneel en neutraal"
 st.sidebar.caption("Vaste AI-schrijfstijl: professioneel en neutraal")
 
-# OpenAI API-key wordt automatisch gelezen uit .env, Streamlit secrets of environment variables.
-# De gebruiker moet geen sleutel ingeven in de app.
-try:
-    ai_api_key_input = str(st.secrets.get("OPENAI_API_KEY", "")).strip()
-except Exception:
-    ai_api_key_input = ""
+# OpenAI API-key wordt gelezen uit het .env-bestand
+load_dotenv()
 
-if not ai_api_key_input:
-    ai_api_key_input = os.getenv("OPENAI_API_KEY", "").strip()
+ai_api_key_input = os.getenv("OPENAI_API_KEY", "").strip()
 
 st.sidebar.caption("AI schrijft alleen interpretatieteksten. Data, scores, kaarten en berekeningen blijven controleerbaar en regelgebaseerd.")
 
@@ -2892,16 +2889,13 @@ def maak_synthese_kwaliteitscheck_eindconclusie(
 
 
 
+import os
+
 def _haal_openai_api_key(api_key_input=""):
-    """Haalt de OpenAI API key veilig op uit invoer, Streamlit secrets of environment."""
+    """Haalt de OpenAI API key op uit invoer of environment variable."""
     if api_key_input:
         return api_key_input.strip()
-    try:
-        key = st.secrets.get("OPENAI_API_KEY", "")
-        if key:
-            return str(key).strip()
-    except Exception:
-        pass
+
     return os.getenv("OPENAI_API_KEY", "").strip()
 
 
@@ -3124,7 +3118,7 @@ def genereer_ai_mobiliteitstekst(
     if not api_key:
         return {
             "actief": False,
-            "fout": "Geen OpenAI API key gevonden. Controleer of OPENAI_API_KEY correct in het .env-bestand of in environment variable staat.",
+            "fout": "Geen OpenAI API key gevonden. Controleer of OPENAI_API_KEY correct als environment variable is ingesteld.",
             "prompt": prompt,
             "tekst": "",
             "model": model,
