@@ -38,7 +38,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 import os
 
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv("DL_API_KEY")
 
 # Uitbreidbaar parkeerkader per gemeente. Voeg hier later gemeenten toe zonder
 # de berekeningslogica zelf te moeten aanpassen.
