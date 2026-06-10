@@ -38,7 +38,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 import os
 
-API_KEY = os.getenv("DL_API_KEY")
+API_KEY = "eedcd2305337437d8594fc84c208709c"
 
 # Uitbreidbaar parkeerkader per gemeente. Voeg hier later gemeenten toe zonder
 # de berekeningslogica zelf te moeten aanpassen.
@@ -385,7 +385,8 @@ st.sidebar.caption("Vaste AI-schrijfstijl: professioneel en neutraal")
 # OpenAI API-key wordt gelezen uit het .env-bestand
 load_dotenv()
 
-ai_api_key_input = os.getenv("OPENAI_API_KEY", "").strip()
+ai_api_key_raw = "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"
+ai_api_key_input = ai_api_key_raw.strip()
 
 st.sidebar.caption("AI schrijft alleen interpretatieteksten. Data, scores, kaarten en berekeningen blijven controleerbaar en regelgebaseerd.")
 
